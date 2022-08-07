@@ -36,10 +36,35 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
          return res.status(500).send({message:"login unsuccessful"})
        }
     })
+    app.get("/teacher" , async(req , res) =>{
+      const result = await teacherCollection.find().toArray()
+      res.send(result)
+    })
     app.post("/student" , async(req , res) =>{
       const student = req.body      
       const result = await studentCollection.insertOne(student)
       res.send(result)
+    })
+    app.post("/student/login" , async(req , res) =>{
+      const student = req.body    
+      const email = student.email  
+      const password = student.password
+      const id = student.id
+      const query ={
+        email,
+        password,
+        id
+      }
+      const storeEmail = await studentCollection.findOne(query)      
+       if(storeEmail ){
+        return res.status(200).send({message:"login successful"})
+       }else{
+         return res.status(500).send({message:"login unsuccessful"})
+       }
+    })
+    app.get("/totalStudent"  , async (req , res) =>{
+     const result = await studentCollection.find().toArray()
+     res.send(result)
     })
    }finally{
 
