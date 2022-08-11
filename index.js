@@ -72,7 +72,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
  }
  run().catch(console.dir);
 app.get('/', (req, res) => {
-  res.send('Techkid Company')
+  res.send('wellcome  Techkid Company ')
 })
 
 app.listen(port, () => {
